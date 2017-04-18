@@ -8,10 +8,12 @@
  */
 function internet_reception_mail($key, &$message, $params)
 {
-    switch ($key){
-    case 'test_email':
-        $message['body'][] = $params['body'];
-    break;
-  };
-};
+    switch ($key) {
+        case 'test_email':
+            $message['body'][] = $params['body'];
+            break;
+    };
+}
+
+;
 
