@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * This module for sending emails
+ * Hooks for internet_reception module
  */
 
 /*
