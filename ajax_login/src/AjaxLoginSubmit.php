@@ -16,26 +16,37 @@ use Drupal\Core\Form\FormStateInterface;
 
 class AjaxLoginSubmit {
 
- /**
-  * {@inheritdoc}.
-  */
+  /**
+   *Ajax message about user login or not
+   *
+   * Callback for user_login_form
+   *
+   * @param array $form
+   * @param FormStateInterface $form_state
+   * @return AjaxResponse
+   */
+
+
   public function ajaxSubmitCallback(array &$form, FormStateInterface $form_state) {
 
     $ajax_response = new AjaxResponse();
 
     $auth = \Drupal::currentUser()->isAuthenticated();
 
-    $link_to_title = "<br><a href='/'>DRUPAL LINK </a>";
-
     if ($auth == true) {
       $ajax_response->addCommand(new HtmlCommand('#' . Html::getClass($form['form_id']['#value']) . '-messages',
-        ' Hello, '.$form_state->getValue('name').'! To see the website as a registered user go to this link.' . $link_to_title)
+      t('Hello @name! To see the website as a registered user go to <a href="@link">this link</a>.',
+        ['@name' => $form_state->getValue('name'),
+          '@link' => 'http://drupalvm.dev/']))
       );
+
       $ajax_response->addCommand(new CssCommand('.form-item-name', ['display' => 'none']));
       $ajax_response->addCommand(new CssCommand('.form-item-pass', ['display' => 'none']));
       $ajax_response->addCommand(new CssCommand('#edit-actions', ['display' => 'none']));
-    } else {
-      $ajax_response->addCommand(new HtmlCommand('#' . Html::getClass($form['form_id']['#value']) . '-messages', " Incorrect login and/or password!"));
+    }
+    else {
+      $ajax_response->addCommand(new HtmlCommand('#' . Html::getClass($form['form_id']['#value']) . '-messages',
+        t(' Incorrect login and/or password!')));
     };
     return $ajax_response;
   }

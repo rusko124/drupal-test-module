@@ -11,14 +11,14 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 class InternetReceptionForm extends FormBase {
-  /*
+  /**
    * {@inheritdoc}.
    */
   public function getFormId() {
     return 'internet_reception_form';
   }
 
-  /*
+  /**
    * {@inheritdoc}.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
@@ -59,7 +59,7 @@ class InternetReceptionForm extends FormBase {
     return $form;
   }
 
-  /*
+  /**
    * {@inheritdoc}.
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
@@ -69,7 +69,7 @@ class InternetReceptionForm extends FormBase {
     };
   }
 
-  /*
+  /**
    * {@inheritdoc}.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
