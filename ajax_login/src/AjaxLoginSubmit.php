@@ -37,7 +37,7 @@ class AjaxLoginSubmit {
       $ajax_response->addCommand(new HtmlCommand('#' . Html::getClass($form['form_id']['#value']) . '-messages',
       t('Hello @name! To see the website as a registered user go to <a href="@link">this link</a>.',
         ['@name' => $form_state->getValue('name'),
-          '@link' => 'http://drupalvm.dev/']))
+          '@link' => '/']))
       );
 
       $ajax_response->addCommand(new CssCommand('.form-item-name', ['display' => 'none']));
