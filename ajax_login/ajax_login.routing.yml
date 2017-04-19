@@ -1,0 +1,5 @@
+ajax_login.form:
+  defaults:
+    _title: 'Ajax login'
+  requirements:
+    _permission: 'access content'

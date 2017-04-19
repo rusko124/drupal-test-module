@@ -23,35 +23,26 @@ class MyForm extends FormBase
 
         $form['name'] = array(
             '#type' => 'textfield',
-            '#title' => $this->t('Your name'),
-        );
+            '#title' => $this->t('Your name'),);
 
         $form['email'] = array(
             '#type' => 'email',
-            '#title' => $this->t('Your email'),
-        );
+            '#title' => $this->t('Your email'),);
 
-        $form['age'] = array(
-            '#type' => 'number',
-            '#title' => $this->t('Your age'),
-        );
+        $form['age'] = array('#type' => 'number', '#title' => $this->t('Your age'),);
 
         $form['subject'] = array(
             '#type' => 'textfield',
-            '#title' => $this->t("Subject"),
-        );
+            '#title' => $this->t("Subject"),);
 
         $form['message'] = array(
             '#type' => 'textarea',
-            '#title' => $this->t('Message'),
-        );
+            '#title' => $this->t('Message'),);
 
         $form['actions']['#type'] = 'actions';
         $form['actions']['submit'] = array(
             '#type' => 'submit',
-            '#value' => $this->t('Send message'),
-            '#button_type' => 'primary',
-        );
+            '#value' => $this->t('Send message'), '#button_type' => 'primary',);
 
         return $form;
     }
@@ -82,9 +73,7 @@ class MyForm extends FormBase
 
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
-        drupal_set_message($this->t('Thank you @name!', array(
-            '@name' => $form_state->getValue('name'),
-        )));
+        drupal_set_message($this->t('Thank you @name!', array('@name' => $form_state->getValue('name'),)));
 
         $mailManager = \Drupal::service('plugin.manager.mail');
         $params = array('body' => 'Message: ' . $form_state->getValue('message'),);

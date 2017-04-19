@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Hooks for ajax_login module.
+ */
+use Drupal\Component\Utility\Html;
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function ajax_login_form_user_login_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
+{
+
+    $form['system_messages'] = ['#markup' => '<div id="' . Html::getClass($form_id) . '-messages"></div>', '#weight' => -100,];
+
+    $form['actions']['submit']['#ajax'] = [
+        'callback' => 'Drupal\ajax_login\AjaxLoginSubmit::ajaxSubmitCallback',
+        'event' => 'click',
+        'progress' => [
+            'type' => 'throbber',
+        ],
+    ];
+}
