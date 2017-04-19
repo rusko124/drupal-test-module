@@ -1,7 +1,7 @@
 collect_phone.form:
   path: '/internet-reception'
   defaults:
-    _title: 'Internt Reception title'
-    _form: '\Drupal\internet_reception\Form\MyForm'
+    _title: 'Internet Reception title'
+    _form: '\Drupal\internet_reception\Form\InternetReceptionForm'
   requirements:
     _permission: 'access content'

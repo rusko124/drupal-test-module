@@ -1,6 +1,6 @@
 name: Internet Reception
-description: 'Internet Reception module'
+description: 'Internet Reception form for send email.'
 type: module
 core: 8.x
 version: 1.0
-package: CustomModule
+package: Custom

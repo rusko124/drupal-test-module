@@ -1,17 +1,17 @@
 <?php
-
 /**
- * Implements hook_mail().
- * @param $key
- * @param $message
- * @param $params
+ * @file
+ * This module for sending emails
  */
-function internet_reception_mail($key, &$message, $params)
-{
-    switch ($key) {
-    case 'test_email':
-            $message['body'][] = $params['body'];
-        break;
-    };
-};
 
+/*
+ * Implements hook_mail()
+ */
+function internet_reception_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'internet_reception_key':
+      $message['subject'] = $params['subject'];
+      $message['body'][] = $params['body'];
+      break;
+  };
+};
