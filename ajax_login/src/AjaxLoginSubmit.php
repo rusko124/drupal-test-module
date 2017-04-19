@@ -16,7 +16,7 @@ use Drupal\Core\Form\FormStateInterface;
 
 class AjaxLoginSubmit {
 
- /*
+ /**
   * {@inheritdoc}.
   */
   public function ajaxSubmitCallback(array &$form, FormStateInterface $form_state) {
