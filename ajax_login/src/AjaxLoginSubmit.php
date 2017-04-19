@@ -13,7 +13,6 @@ use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Ajax\CssCommand;
 use Drupal\Core\Form\FormStateInterface;
 
-
 class AjaxLoginSubmit {
 
   /**
@@ -25,15 +24,13 @@ class AjaxLoginSubmit {
    * @param FormStateInterface $form_state
    * @return AjaxResponse
    */
-
-
   public function ajaxSubmitCallback(array &$form, FormStateInterface $form_state) {
 
     $ajax_response = new AjaxResponse();
 
     $auth = \Drupal::currentUser()->isAuthenticated();
 
-    if ($auth == true) {
+    if ($auth == True) {
       $ajax_response->addCommand(new HtmlCommand('#' . Html::getClass($form['form_id']['#value']) . '-messages',
       t('Hello @name! To see the website as a registered user go to <a href="@link">this link</a>.',
         ['@name' => $form_state->getValue('name'),
