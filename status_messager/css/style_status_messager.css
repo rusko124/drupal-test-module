@@ -1,15 +1,14 @@
-.system-modal-window .sys-mess-error {color:#a51b00;}
+#status-messager .sys-mess-error {color:#a51b00;}
 
-.system-modal-window .sys-mess-warning {color:#734c00;}
+#status-messager .sys-mess-warning {color:#734c00;}
 
-.system-modal-window .sys-mess-status {color:#325e1c;}
+#status-messager .sys-mess-status {color:#325e1c;}
 
 .invisible {
 	visibility: hidden;
 }
 
-.system-modal-window {
-
+#status-messager {
 	width: 500px;
 	height: 400px;
 	z-index: 1270;
@@ -22,32 +21,35 @@
 	overflow: auto;
 }
 
-.system-modal-window .system-modal-window-title {
+#status-messager .system-modal-window-title {
 	background-color: gray;
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
-
-
+	cursor: move;
 }
 
-.system-modal-window .system-modal-window-title .modal-title {
+#status-messager .system-modal-window-title .modal-title {
+	-webkit-user-select:none;
 	color: #fff;
 	font-size: 22px;	
 	line-height: 2em;
 	margin-left: 15px;
-	cursor: move;
 }
 
-.system-modal-window .system-modal-window-title .close-button {
+main.page-content.clearfix{
+	margin: 0;
+}
+
+#status-messager .system-modal-window-title .close-button {
 	float: right;
+	cursor: pointer;
 }
 
-.system-modal-window .system-modal-window-body {
+#status-messager .system-modal-window-body {
 	padding: 10px;
 }
 
 .system-modal-overlay {
-
 	background-color: rgba(0, 0, 0, 0.7);;
 	position: fixed;
 	top:0;
@@ -57,3 +59,4 @@
 	z-index: 1269;
 	text-align: center;
 }
+

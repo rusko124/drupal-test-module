@@ -1,0 +1,15 @@
+{% for type, messages in message_list %}
+      <div id="status-messager" class="system-modal-window">
+      <div class="system-modal-window-title">
+        <span class="modal-title">System Messager</span>
+        <span class="close-button"><img src="{{ img_close_path }}" alt="close" width="20" height="20"></span>
+      </div>
+      <div class="system-modal-window-body ">
+      {% for message in messages %}
+        <div class="sys-mess-{{ type }}">{{ message }}</div>
+      {% endfor %}
+      </div>
+    </div>
+    <div class="system-modal-overlay "></div>
+  </div>
+ {% endfor %}
