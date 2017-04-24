@@ -1,0 +1,8 @@
+status_messager.settings:
+  path: '/admin/structure/status-messager/settings'
+  defaults:
+    _form: 'Drupal\status_messager\Form\MessagerSettingsForm'
+    _title: 'Edit form status messager.'
+  requirements:
+    _permission: 'administer site configuration'
+

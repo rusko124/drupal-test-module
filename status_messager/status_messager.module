@@ -1,0 +1,38 @@
+<?php
+/**
+ * @file
+ * Hooks for status_messager module.
+ */
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function status_messager_theme_registry_alter(&$theme_registry) {
+  $theme_registry['page']['path'] = drupal_get_path('module', 'status_messager') . '/templates';
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function status_messager_preprocess_page(&$variables) {
+  $variables['#attached']['library'][] = 'status_messager/modal.from.js';
+  $variables['#attached']['drupalSettings']['status_messager'] = \Drupal::config('status_messager.settings')->get();
+  if($dsm = drupal_get_messages()){
+    $items = array();
+    foreach ($dsm as $type => $messages) {
+      foreach ($messages as $key => $message) {
+        $item = array(
+          'type' => $type,
+          'content' => $message,
+        );
+        $items[] = $item;
+      }	
+    }
+    if($items){
+      $variables['mess'] = $items;
+      $variables['img_path'] = drupal_get_path('module','status_messager').'/images/close.png';
+    }else{
+      $variables['mess'] = false;
+    }
+  }
+}

@@ -1,0 +1,59 @@
+.system-modal-window .sys-mess-error {color:#a51b00;}
+
+.system-modal-window .sys-mess-warning {color:#734c00;}
+
+.system-modal-window .sys-mess-status {color:#325e1c;}
+
+.invisible {
+	visibility: hidden;
+}
+
+.system-modal-window {
+
+	width: 500px;
+	height: 400px;
+	z-index: 1270;
+	display: block;
+	background-color: #ffffff;
+	position: fixed;
+	top: calc((100% - 400px)/2);
+	left: calc((100% - 500px)/2);
+	border-radius: 8px;
+	overflow: auto;
+}
+
+.system-modal-window .system-modal-window-title {
+	background-color: gray;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+
+
+}
+
+.system-modal-window .system-modal-window-title .modal-title {
+	color: #fff;
+	font-size: 22px;	
+	line-height: 2em;
+	margin-left: 15px;
+	cursor: move;
+}
+
+.system-modal-window .system-modal-window-title .close-button {
+	float: right;
+}
+
+.system-modal-window .system-modal-window-body {
+	padding: 10px;
+}
+
+.system-modal-overlay {
+
+	background-color: rgba(0, 0, 0, 0.7);;
+	position: fixed;
+	top:0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1269;
+	text-align: center;
+}
