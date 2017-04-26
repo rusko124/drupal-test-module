@@ -1,0 +1,7 @@
+name: Discounter
+description: "Add discounter code for users."
+type: module
+core: 8.x
+version: 1.0
+package: Custom
+configure: discounter.settings

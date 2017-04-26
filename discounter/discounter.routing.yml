@@ -1,0 +1,17 @@
+discounter.welcomepage:
+  path: '/registration-success'
+  defaults:
+    _controller: '\Drupal\discounter\Controller\RegistrationSuccessController::welcome'
+  requirements:
+    _permission: 'access content'
+    
+discounter.settings:
+  path: '/admin/structure/discounter/settings'
+  defaults:
+    _form: 'Drupal\discounter\Form\DiscounterSettingsForm'
+    _title: 'Edit form discounter.'
+  requirements:
+    _permission: 'administer site configuration'
+
+
+

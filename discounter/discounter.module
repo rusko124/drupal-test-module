@@ -1,0 +1,67 @@
+<?php
+
+use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\Core\Url;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+
+ /**
+  * Implements hook_token_info().
+  */
+function discounter_token_info() {
+  $info = array();
+  $info['tokens']['discounter']['username'] = array(
+    'name' => t('Username'),
+    'description' => t('Username'),
+  );
+  $info['tokens']['discounter']['discount_code'] = array(
+    'name' => t('Discount code'),
+    'description' => t('This is personal discount code for user'),
+  );
+ return $info;
+}
+
+ /**
+  * Implements hook_tokens().
+  */
+function discounter_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
+  $replacements = array();
+  $discounter_user_data = $data["discounter_user"];
+  $discounter_code_data = $data["discounter_code"];
+  if ($type == 'discounter') {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'discount_code':
+          $new = $discounter_code_data;
+          $replacements[$original] = $new;
+          break;
+        case 'username':
+          $new = $discounter_user_data;
+          $replacements[$original] = $new;
+          break;
+      }
+    }
+  }   
+  return $replacements;
+}
+
+/**
+ *Implements hook_form_HOOK_FORM_alter().
+ */
+function discounter_form_user_register_form_alter(&$form, &$form_state, $form_id) {
+  $function = "discounter_user_register_form_submit";
+  if (function_exists($function))
+    $form['actions']['submit']['#submit'][] = $function;
+}
+
+/**
+ *Function for submit button.Generate discount entity and redirect to welcome page.
+ */
+function discounter_user_register_form_submit($form, &$form_state) {
+  $account = \Drupal\discounter\Entity\Discounter::create();
+  $account->save();
+  $redirect_path = "/registration-success";
+  $url = url::fromUserInput($redirect_path);
+  $form_state->setRedirectUrl($url);
+}
+
