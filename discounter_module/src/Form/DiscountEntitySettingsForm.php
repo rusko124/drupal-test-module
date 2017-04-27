@@ -51,5 +51,4 @@ class DiscountEntitySettingsForm extends FormBase {
     $form['DiscountEntity_settings']['#markup'] = 'Settings form for Discount entity entities. Manage field settings here.';
     return $form;
   }
-
 }
