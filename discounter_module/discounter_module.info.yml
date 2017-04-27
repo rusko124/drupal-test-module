@@ -1,0 +1,6 @@
+name: Discounter module
+type: module
+description: This is module get discount code for user.
+core: 8.x
+package: Custom
+configure: discounter_module.settings

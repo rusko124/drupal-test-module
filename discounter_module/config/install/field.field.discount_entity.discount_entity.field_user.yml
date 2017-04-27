@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.discount_entity.field_user
+  module:
+    - discounter_module
+id: discount_entity.discount_entity.field_user
+field_name: field_user
+entity_type: discount_entity
+bundle: discount_entity
+label: user
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    include_anonymous: true
+    filter:
+      type: _none
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference

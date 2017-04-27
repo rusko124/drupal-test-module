@@ -1,0 +1,111 @@
+<?php
+
+/**
+ * @file
+ * Contains discounter_module.module.
+ */
+use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\Core\Url;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function discounter_module_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the discounter_module module.
+    case 'help.page.discounter_module':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This is module get discount code for user.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+ /**
+  * Implements hook_token_info().
+  */
+function discounter_module_token_info() {
+  $info = array();
+  $info['tokens']['discounter']['username'] = array(
+    'name' => t('Username'),
+    'description' => t('Username'),
+  );
+  $info['tokens']['discounter']['discount_code'] = array(
+    'name' => t('Discount code'),
+    'description' => t('This is personal discount code for user'),
+  );
+ return $info;
+}
+
+ /**
+  * Implements hook_tokens().
+  */
+function discounter_module_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
+  $replacements = array();
+  $discounter_user_data = $data["discounter_user"];
+  $discounter_code_data = $data["discounter_code"];
+  if ($type == 'discounter') {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'discount_code':
+          $new = $discounter_code_data;
+          $replacements[$original] = $new;
+          break;
+        case 'username':
+          $new = $discounter_user_data;
+          $replacements[$original] = $new;
+          break;
+      }
+    }
+  }   
+  return $replacements;
+}
+
+/**
+ *Implements hook_form_HOOK_FORM_alter().
+ */
+function discounter_module_form_user_register_form_alter(&$form, &$form_state, $form_id) {
+  $function = "discounter_module_user_register_form_submit";
+  if (function_exists($function))
+    $form['actions']['submit']['#submit'][] = $function;
+}
+
+/**
+ *Function for submit button.Generate discount entity and redirect to welcome page.
+ */
+function discounter_module_user_register_form_submit($form, &$form_state) {
+  $user_id = \Drupal::currentUser()->id();
+
+  $array = entity_load_multiple('discount_entity');
+  foreach ($array as $key => $value) {
+  	$discounter_code_array[] = $value->field_discount_code->value;
+  }
+
+  while (TRUE) {
+    $length = 10;
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+      $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    if (!(in_array($randomString, $discounter_code_array))) {
+      break;
+    }
+  }
+
+  $account =\Drupal::entityTypeManager()->getStorage('discount_entity')->create(array('field_user' => $user_id, 'field_discount_code' => $randomString));
+  $account->save();
+
+  $redirect_path = "/registration-success";
+  $url = url::fromUserInput($redirect_path);
+  $form_state->setRedirectUrl($url);
+}
+
+
+

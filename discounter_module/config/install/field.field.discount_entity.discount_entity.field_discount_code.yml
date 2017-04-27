@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.discount_entity.field_discount_code
+  module:
+    - discounter_module
+id: discount_entity.discount_entity.field_discount_code
+field_name: field_discount_code
+entity_type: discount_entity
+bundle: discount_entity
+label: 'Discount code'
+description: 'This is discount code for user.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

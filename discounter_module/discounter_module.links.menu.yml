@@ -1,0 +1,14 @@
+
+# Discount entity menu items definition
+entity.discount_entity.collection:
+  title: 'Discount entity list'
+  route_name: entity.discount_entity.collection
+  description: 'List Discount entity entities'
+  parent: system.admin_structure
+  weight: 100
+
+discount_entity.admin.structure.settings:
+  title: Discount entity settings
+  description: 'Configure Discount entity entities'
+  route_name: discount_entity.settings
+  parent: system.admin_structure

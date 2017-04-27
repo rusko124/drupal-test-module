@@ -1,0 +1,22 @@
+add discount entity entities:
+  title: 'Create new Discount entity entities'
+
+administer discount entity entities:
+  title: 'Administer Discount entity entities'
+  description: 'Allow to access the administration form to configure Discount entity entities.'
+  restrict access: true
+
+delete discount entity entities:
+  title: 'Delete Discount entity entities'
+
+edit discount entity entities:
+  title: 'Edit Discount entity entities'
+
+access discount entity overview:
+  title: 'Access the Discount entity overview page'
+
+view published discount entity entities:
+  title: 'View published Discount entity entities'
+
+view unpublished discount entity entities:
+  title: 'View unpublished Discount entity entities'
