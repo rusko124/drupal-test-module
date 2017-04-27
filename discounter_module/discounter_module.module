@@ -39,7 +39,7 @@ function discounter_module_token_info() {
     'name' => t('Discount code'),
     'description' => t('This is personal discount code for user'),
   );
- return $info;
+  return $info;
 }
 
  /**
@@ -47,8 +47,8 @@ function discounter_module_token_info() {
   */
 function discounter_module_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
   $replacements = array();
-  $discounter_user_data = $data["discounter_user"];
-  $discounter_code_data = $data["discounter_code"];
+  $discounter_user_data = $data['discounter_user'];
+  $discounter_code_data = $data['discounter_code'];
   if ($type == 'discounter') {
     foreach ($tokens as $name => $original) {
       switch ($name) {
@@ -70,9 +70,7 @@ function discounter_module_tokens($type, $tokens, array $data, array $options, B
  *Implements hook_form_HOOK_FORM_alter().
  */
 function discounter_module_form_user_register_form_alter(&$form, &$form_state, $form_id) {
-  $function = "discounter_module_user_register_form_submit";
-  if (function_exists($function))
-    $form['actions']['submit']['#submit'][] = $function;
+  $form['actions']['submit']['#submit'][] = "discounter_module_user_register_form_submit";
 }
 
 /**
@@ -85,12 +83,11 @@ function discounter_module_user_register_form_submit($form, &$form_state) {
   foreach ($array as $key => $value) {
   	$discounter_code_array[] = $value->field_discount_code->value;
   }
-
+  $length = 10;
+  $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  $charactersLength = strlen($characters);
+  $randomString = '';
   while (TRUE) {
-    $length = 10;
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $charactersLength = strlen($characters);
-    $randomString = '';
     for ($i = 0; $i < $length; $i++) {
       $randomString .= $characters[rand(0, $charactersLength - 1)];
     }
@@ -102,7 +99,7 @@ function discounter_module_user_register_form_submit($form, &$form_state) {
   $account =\Drupal::entityTypeManager()->getStorage('discount_entity')->create(array('field_user' => $user_id, 'field_discount_code' => $randomString));
   $account->save();
 
-  $redirect_path = "/registration-success";
+  $redirect_path = '/registration-success';
   $url = url::fromUserInput($redirect_path);
   $form_state->setRedirectUrl($url);
 }

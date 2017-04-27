@@ -12,9 +12,9 @@ class RegistrationSuccessController extends ControllerBase {
   public function welcome() {
     //Load settings
     $settings = \Drupal::config('discounter_module.settings');
-   //  //Load user id
+    //Load user id
     $user_id = \Drupal::currentUser()->id();
-   //  //GET CODE DISCOUNT
+   //GET CODE DISCOUNT
     $array = entity_load_multiple('discount_entity');
     foreach ($array as $key => $value) {
       if ($user_id == $value->field_user->target_id) {
@@ -23,7 +23,7 @@ class RegistrationSuccessController extends ControllerBase {
         $code = $value->field_discount_code->value;
       }
     }
-   //  //USE CUSTOM TOKENS
+    //USE CUSTOM TOKENS
     $token = \Drupal::token();
     $data = array('discounter_code' => $code, 'discounter_user' => $user);
     $message_html = $settings->get('welcome_message');   
