@@ -9,8 +9,6 @@ use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Class NoteBatchForm.
- *
- * @package Drupal\simple_notes\Form
  */
 class NoteBatchForm extends FormBase {
   /**

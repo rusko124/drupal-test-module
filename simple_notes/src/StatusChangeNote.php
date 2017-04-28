@@ -33,8 +33,8 @@ class StatusChangeNote {
     $term_key_expired = key($term);
 
     $results = array();
-    foreach ($nids as $nid) {
-      $node = Node::load($nid);
+    $nodes = entity_load_multiple('node', $nids);
+    foreach ($nodes as $node) {
       $timestamp_node = (int)$node->revision_timestamp->value;
       if ($timestamp_node > $time->getTimestamp()) {
         $node->field_status->target_id = $term_key_actual;
@@ -71,8 +71,8 @@ class StatusChangeNote {
   public static function statusChangeToNull($nids, &$context){
     $message = 'Changing status to N/A...';
     $results = array();
-    foreach ($nids as $nid) {
-      $node = Node::load($nid);
+    $nodes = entity_load_multiple('node', $nids);
+    foreach ($nodes as $node) {
       $node->field_status->target_id = 0;
       $results[] = $node->save();
     }
