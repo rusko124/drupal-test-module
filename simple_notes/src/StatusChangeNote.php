@@ -1,4 +1,9 @@
 <?php
+/**
+ * @file
+ * Contains Drupal/simple_notes/StatusChangeNote.
+ */
+
 namespace Drupal\simple_notes;
 use Drupal\node\Entity\Node;
 
@@ -8,6 +13,10 @@ use Drupal\node\Entity\Node;
  */
 class StatusChangeNote {
 
+  /**
+   *This function compares the time specified by the user and the creation time of the note. 
+   *And changes the status.
+   */
   public static function statusChangeTo($nids, $time, &$context){
     $message = 'Changing status ...'; 
 
@@ -40,6 +49,9 @@ class StatusChangeNote {
     $context['results'] = $results;
   }
 
+  /**
+   *This function Finised Callback for statusChangeTo function.
+   */
   function statusChangeToFinishedCallback($success, $results, $operations) {
     if ($success) {
       $message = \Drupal::translation()->formatPlural(
@@ -53,6 +65,9 @@ class StatusChangeNote {
     drupal_set_message($message);
   }
 
+  /**
+   *This batch function change status note to N/A.
+   */
   public static function statusChangeToNull($nids, &$context){
     $message = 'Changing status to N/A...';
     $results = array();
@@ -65,6 +80,9 @@ class StatusChangeNote {
     $context['results'] = $results;
   }
 
+  /**
+   *This function Finised Callback for statusChangeToNull function.
+   */
   function statusChangeToNullFinishedCallback($success, $results, $operations) {
     if ($success) {
       $message = \Drupal::translation()->formatPlural(

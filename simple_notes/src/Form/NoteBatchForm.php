@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Contains Drupal/simple_notes/Form/NoteBatchForm.
+ */
 namespace Drupal\simple_notes\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -29,8 +33,6 @@ class NoteBatchForm extends FormBase {
     $form['status_batch_change'] = array(
       '#type' => 'submit',
       '#value' => $this->t('Set status'),
-      '#submit' => array([$this,'status_batch_change_submit']),
-      '#limit_validation_errors' => array() ,
     );
 
     $form['status_batch_clear'] = array(
@@ -41,12 +43,12 @@ class NoteBatchForm extends FormBase {
     );
 
     return $form;
-}
+  }
 
   /**
-   *This function for submit status_batch_change.
+   * {@inheritdoc}
    */
-  public function status_batch_change_submit(array &$form, FormStateInterface $form_state){
+  public function submitForm(array &$form, FormStateInterface $form_state) {
     if (!($form_state->getValue('start_date'))) {
       drupal_set_message('Datetime not picked!', 'warning');
       return;
@@ -88,13 +90,6 @@ class NoteBatchForm extends FormBase {
       'finished' => '\Drupal\simple_notes\StatusChangeNote::statusChangeToNullFinishedCallback',
     );
     batch_set($batch);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
-
   }
 
 }
