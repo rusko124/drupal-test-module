@@ -1,0 +1,23 @@
+<?php
+
+use Drupal\taxonomy\Entity\Vocabulary;
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Implements hook_install().
+ *
+ */
+function simple_notes_install() {
+  $vocabulary = Vocabulary::create(array(
+    'vid' => 'status_note',
+    'name' => 'Status note',
+  ))->save();
+  $term_array = ['Actual','Expired'];
+  foreach ($term_array as $value) {
+    $term = Term::create(array(
+      'parent' => array(),
+      'name' => $value,
+      'vid' => 'status_note',
+    ))->save();
+  }
+}

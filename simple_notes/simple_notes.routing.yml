@@ -1,0 +1,7 @@
+simple_notes.status_batch:
+  path: '/simple-notes/status-batch'
+  defaults:
+    _form: '\Drupal\simple_notes\Form\NoteBatchForm'
+    _title: 'Status batch'
+  requirements:
+    _permission: 'administer site configuration'

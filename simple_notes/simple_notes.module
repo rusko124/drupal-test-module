@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Contains simple_notes.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function simple_notes_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the simple_notes module.
+    case 'help.page.simple_notes':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This is module create a content type note.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+
+
+

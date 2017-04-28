@@ -1,0 +1,6 @@
+name: Simple notes
+type: module
+description: This is module create a content type note.
+core: 8.x
+package: Custom
+configure: simple_notes.status_batch
