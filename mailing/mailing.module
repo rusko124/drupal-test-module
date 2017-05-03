@@ -48,10 +48,18 @@ function mailing_cron() {
   /** @var QueueInterface $queue */
   $queue = $queue_factory->get('mailing_queue'); 
   $queue_mail = \Drupal::queue('mail');
-  for ($i=0; $i < 10; $i++) { 
+  $queue_mail_count = $queue_mail->numberOfItems();
+  if ($queue_mail_count > 10) {
+    $count = 10;
+  }
+  else {
+    $count = $queue_mail_count;
+  }
+  for ($i=0; $i < $count; $i++) { 
     $item = $queue_mail->claimItem();
-    $queue->createItem($item->data['mail'],$item->data['username']);
-    $queue_mail->deleteItem($item);
+    $data_items = ['mail' => $item->data['mail'],'username' => $item->data['username']];
+    $queue->createItem();
+    $queue_mail->deleteItem($data_items);
   }
 }
 
