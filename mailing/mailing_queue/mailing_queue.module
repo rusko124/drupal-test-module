@@ -38,4 +38,3 @@ function mailing_queue_cron() {
     }
   } 
 }
-

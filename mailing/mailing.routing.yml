@@ -13,3 +13,4 @@ mailing.form_queue:
     _title: 'Mailing'
   requirements:
     _permission: 'administer site configuration'
+    

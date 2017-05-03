@@ -72,4 +72,3 @@ class MailingQueueForm extends ConfigFormBase {
     drupal_set_message('All mails sended was clear.');
   }
 }
-?>
