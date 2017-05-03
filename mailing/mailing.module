@@ -57,8 +57,10 @@ function mailing_cron() {
   }
   for ($i=0; $i < $count; $i++) { 
     $item = $queue_mail->claimItem();
-    $data_items = ['mail' => $item->data['mail'],'username' => $item->data['username']];
-    $queue->createItem($data_items);
+    $mail = $item->data['mail'];
+    $username = $item->data['username'];
+    $array = ['mail' => $mail, 'username' => $username];
+    $queue->createItem($array);
     $queue_mail->deleteItem($item);
   }
 }
