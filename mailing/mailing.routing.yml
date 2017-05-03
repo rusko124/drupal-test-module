@@ -1,0 +1,15 @@
+mailing.controller_test:
+  path: '/test'
+  defaults:
+    _controller: '\Drupal\mailing\Controller\Test::test'
+    _title: 'Test'
+  requirements:
+    _permission: 'administer site configuration'
+
+mailing.form_queue:
+  path: '/mailing'
+  defaults:
+    _form: '\Drupal\mailing\Form\MailingQueueForm'
+    _title: 'Mailing'
+  requirements:
+    _permission: 'administer site configuration'

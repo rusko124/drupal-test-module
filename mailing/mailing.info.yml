@@ -1,0 +1,5 @@
+name: Mailing
+type: module
+description: Module for mailing to user.
+core: 8.x
+package: Custom

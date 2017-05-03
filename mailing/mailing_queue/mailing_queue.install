@@ -1,0 +1,31 @@
+<?php 
+
+
+/**
+ *Implements hook_schema().
+ */
+function mailing_queue_schema() {
+  $schema['mailing'] = [
+    'description' => 'Table for mailing.',
+    'fields' => [
+       'id' => array(
+         'type' => 'serial',
+         'unsigned' => TRUE,
+         'not null' => TRUE,
+        ),
+        'mail' => array(
+          'description' => 'Mail',
+      	  'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+        ),
+        'send' => array(
+          'description' => 'Mail was send',
+          'type' => 'int',
+          'default' => 0,
+        ),
+	  ],
+    'primary key' => array('id'),
+  ];
+  return $schema;
+}
