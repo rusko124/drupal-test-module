@@ -9,6 +9,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Queue\QueueFactory;
 use Drupal\Core\Queue\QueueInterface;
+use Drupal\Core\Render\BubbleableMetadata;
 
 /**
  * Implements hook_help().
@@ -49,7 +50,47 @@ function mailing_cron() {
   $queue_mail = \Drupal::queue('mail');
   for ($i=0; $i < 10; $i++) { 
     $item = $queue_mail->claimItem();
-    $queue->createItem($item->data['mail']);
+    $queue->createItem($item->data['mail'],$item->data['username']);
     $queue_mail->deleteItem($item);
   }
+}
+
+ /**
+  * Implements hook_token_info().
+  */
+function mailing_token_info() {
+  $info = array();
+  $info['tokens']['mailing']['username'] = array(
+    'name' => t('Username'),
+    'description' => t('Username'),
+  );
+  $info['tokens']['mailing']['admin_mail'] = array(
+    'name' => t('Admin mail'),
+    'description' => t('Admin mail'),
+  );
+  return $info;
+}
+
+ /**
+  * Implements hook_tokens().
+  */
+function mailing_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
+  $replacements = array();
+  $mailing_user_data = $data['mailing_user'];
+  $mailing_admin_data = $data['mailing_admin_mail'];
+  if ($type == 'mailing') {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'admin_mail':
+          $new = $mailing_admin_data;
+          $replacements[$original] = $new;
+          break;
+        case 'username':
+          $new = $mailing_user_data;
+          $replacements[$original] = $new;
+          break;
+      }
+    }
+  }   
+  return $replacements;
 }

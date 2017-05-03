@@ -42,16 +42,11 @@ class MailingQueueForm extends ConfigFormBase {
       '#title' => t('Message'),
       '#required' => TRUE,
       '#default_value' => ($config->get('message')),
+      '#description' => t('Use this token: admin e-mail [mailing:admin_mail]  and username [mailing:username]'),
     );
     $form['submit'] = array(
       '#type' => 'submit',
       '#value' => t('Submit'),
-    );
-    $form['clear_db_mailing'] = array(
-      '#type' => 'submit',
-      '#value' => $this->t('Clear e-mails was send'),
-      '#submit' => array([$this,'clear_db_mailing_submit']),
-      '#limit_validation_errors' => array() ,
     );
     return $form;
   }
@@ -65,10 +60,5 @@ class MailingQueueForm extends ConfigFormBase {
       ->set('message', $form_state->getValue('message'))
       ->save();
     drupal_set_message('Settings saved.');
-  }
-
-  public function clear_db_mailing_submit() {
-    db_query('UPDATE mailing SET send = 0');
-    drupal_set_message('All mails sended was clear.');
   }
 }

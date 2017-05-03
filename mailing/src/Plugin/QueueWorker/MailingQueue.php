@@ -18,13 +18,21 @@ class MailingQueue extends QueueWorkerBase {
   /**
    * {@inheritdoc}
    */
-  public function processItem($item) {
+  public function processItem($mail,$username) {
     $config = \Drupal::config('mailing.settings');
+
+    $token = \Drupal::token();
+    $admin_mail = \Drupal::config('system.site')->get('mail');;  
+    $data = array('mailing_admin_mail' => $admin_mail, 'mailing_user' => $username);
+    $message = $config->get('message');   
+    $message = $token->replace($message, $data);
+
     $params = [
       'subject' => $config->get('subject'),
-      'body' => $config->get('message'),
+      'body' => $message,
     ];
+    
     $mailManager = \Drupal::service('plugin.manager.mail');   
-    $mailManager->mail('mailing', 'mailing_queue', $item, 'en', $params , $send = TRUE);
+    $mailManager->mail('mailing', 'mailing_queue', $mail, 'en', $params , $send = TRUE);
   }
 }

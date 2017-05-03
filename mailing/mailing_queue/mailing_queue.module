@@ -27,8 +27,9 @@ function mailing_queue_cron() {
       if ($user_id != 1) {
         $user = \Drupal\user\Entity\User::load($user_id);
         $mail = $user->mail->value;
+        $username = $user->name->value;
         if($mail) {
-          $queue->createItem(['mail' => $mail]); 
+          $queue->createItem(['mail' => $mail,'username' => $username]); 
         }  
       }
     }
