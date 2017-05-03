@@ -46,11 +46,10 @@ function mailing_cron() {
   $queue_factory = \Drupal::service('queue');
   /** @var QueueInterface $queue */
   $queue = $queue_factory->get('mailing_queue'); 
-  $query_mailing = db_query('SELECT * FROM mailing WHERE send = 0 LIMIT 10');
-  foreach ($query_mailing as $elem) {
-    $mail = $elem->mail;
-    $id = $elem->id;
-    $queue->createItem($mail);
-    db_query('UPDATE mailing SET send = 1 WHERE id = ' . $id);
+  $queue_mail = \Drupal::queue('mail');
+  for ($i=0; $i < 10; $i++) { 
+    $item = $queue_mail->claimItem();
+    $queue->createItem($item->data['mail']);
+    $queue_mail->deleteItem($item);
   }
 }

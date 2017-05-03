@@ -49,7 +49,7 @@ class MailingQueueForm extends ConfigFormBase {
     );
     $form['clear_db_mailing'] = array(
       '#type' => 'submit',
-      '#value' => $this->t('Clear e-mail was sended'),
+      '#value' => $this->t('Clear e-mails was send'),
       '#submit' => array([$this,'clear_db_mailing_submit']),
       '#limit_validation_errors' => array() ,
     );
