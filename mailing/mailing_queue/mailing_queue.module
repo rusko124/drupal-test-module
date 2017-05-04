@@ -17,20 +17,16 @@ function mailing_queue_cron() {
 
   $queue = \Drupal::queue('mail');
   $count = $queue->numberOfItems();
-  $nids = \Drupal::entityQuery('user')
-    ->sort('created', 'ASC')
-    ->execute();
+  $users = entity_load_multiple('user');
+  $admin_mail = \Drupal::config('system.site')->get('mail');
 
   if ($count == 0) {
     $queue->createQueue();
-    foreach ($nids as $user_id) {
-      if ($user_id != 1) {
-        $user = \Drupal\user\Entity\User::load($user_id);
-        $mail = $user->mail->value;
+    foreach ($users as $user) {
+      $mail = $user->mail->value;
+      if ($mail != $admin_mail) {
         $username = $user->name->value;
-        if($mail) {
-          $queue->createItem(['mail' => $mail,'username' => $username]); 
-        }  
+        $queue->createItem(['mail' => $mail,'username' => $username]);  
       }
     }
   }
