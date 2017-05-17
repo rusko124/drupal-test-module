@@ -19,15 +19,12 @@ function node_view_permissions_node_access(NodeInterface $node, $op, $account) {
     case 'delete':
       return AccessResult::neutral();
     default:
-      $publish = $node->isPublished();
-      if ($account->hasPermission('view any ' . $type . ' content', $account) && $publish) {
+      if ($account->hasPermission('view any ' . $type . ' content', $account)) {
         return AccessResult::allowed()->cachePerPermissions();
-      }
-      else if (($account->hasPermission('view own ' . $type . ' content', $account)) && ($account->id() == $node->getOwnerId()) && $account->hasPermission('view own unpublished content', $account)) {
+      } else if (($account->hasPermission('view own ' . $type . ' content', $account)) && ($account->id() == $node->getOwnerId())) {
         return AccessResult::allowed()->cacheUntilEntityChanges($node);
-      }
-      else {
-	      return AccessResult::forbidden();
+      } else {
+	return AccessResult::forbidden();
       }
   }
 }
