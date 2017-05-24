@@ -1,0 +1,8 @@
+name = Alias old
+description = postfix -old
+package = Other
+core = 7.x
+version = "7.x-2.3"
+core = "7.x"
+project = "alias_old"
+

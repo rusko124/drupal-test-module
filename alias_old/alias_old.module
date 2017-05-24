@@ -1,0 +1,14 @@
+<?php
+
+function alias_old_menu() {
+  $items = array();
+ 
+  $items['alias-old'] = array(
+    'title' => 'Batch process',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('alias_old_form'),
+    'access callback' => TRUE,
+    'file' => 'alias_old.forms.inc',
+  );
+  return $items;
+}
